@@ -1,0 +1,51 @@
+1. SELECT o.OrderID, c.CustomerName, SUM(od.Quantity * p.Price) AS TotalPrice
+FROM Orders o
+JOIN Customers c ON o.CustomerID = c.CustomerID
+JOIN OrderDetails od ON o.OrderID = od.OrderID
+JOIN Products p ON od.ProductID = p.ProductID
+GROUP BY o.OrderID, c.CustomerName;
+
+2. SELECT C.CustomerName, COUNT(D.ProductID) AS TotalProduct
+FROM Customers C
+LEFT JOIN Orders O ON C.CustomerID = O.CustomerID
+LEFT JOIN OrderDetails D ON D.OrderID = O.OrderID
+GROUP BY C.CustomerName
+ORDER BY C.CustomerName
+
+3.SELECT C.CustomerName, P.ProductName, SUM(D.Quantity) AS TotalQuantityOrder
+FROM Customers C
+LEFT JOIN Orders O ON C.CustomerID = O.CustomerID
+LEFT JOIN OrderDetails D ON O.OrderID = D.OrderID
+LEFT JOIN Products P ON D.ProductID = P.ProductID
+GROUP BY C.CustomerName, P.ProductName
+ORDER BY C.CustomerName, P.ProductName
+
+
+4.SELECT c.Country, p.ProductName, SUM(od.Quantity) AS TotalQuantityForProduct
+FROM Customers c
+JOIN Orders o ON c.CustomerID = o.CustomerID
+JOIN OrderDetails od ON o.OrderID = od.OrderID
+JOIN Products p ON od.ProductID = p.ProductID
+GROUP BY c.Country, p.ProductName
+
+5.SELECT o.OrderID, c.CustomerName, SUM(od.Quantity * p.Price) AS TotalPrice,
+    CASE
+        WHEN SUM(od.Quantity * p.Price) BETWEEN 1 AND 500 THEN 'Hat'
+        WHEN SUM(od.Quantity * p.Price) BETWEEN 501 AND 1000 THEN 'T-Shirt'
+        ELSE 'TV'
+    END AS Bonus
+FROM Orders o
+JOIN Customers c ON o.CustomerID = c.CustomerID
+JOIN OrderDetails od ON o.OrderID = od.OrderID
+JOIN Products p ON od.ProductID = p.ProductID
+GROUP BY o.OrderID, c.CustomerName;
+
+6.SELECT p.ProductName, SUM(od.Quantity) AS `Total Quantity Sold`,
+    CASE
+        WHEN SUM(od.Quantity) < 30 THEN 'Not Recommended Product'
+        WHEN SUM(od.Quantity) < (SELECT AVG(Total) FROM (SELECT SUM (Quantity) AS TOTAL FROM OrderDetails GROUP BY ProductID)) THEN 'Recommended Product'
+        ELSE 'Best Seller'
+    END AS Details
+FROM Products p
+JOIN OrderDetails od ON p.ProductID = od.ProductID
+GROUP BY p.ProductName;

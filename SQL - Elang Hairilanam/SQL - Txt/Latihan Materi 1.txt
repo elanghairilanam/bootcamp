@@ -1,0 +1,69 @@
+1. SELECT * FROM Customers
+WHERE Country = 'Germany';
+
+2. SELECT ProductName, Price
+FROM Products
+WHERE Price = (
+    SELECT MAX(Price)
+    FROM Products
+);
+
+3.SELECT ProductName, Price
+FROM Products
+WHERE CategoryID IN (
+    SELECT CategoryID
+    FROM Categories
+    WHERE CategoryName = 'Beverages'
+)
+ORDER BY Price ASC
+LIMIT 1;
+
+4.SELECT COUNT(*) AS JumlahPesanan
+FROM OrderDetails
+JOIN Products ON OrderDetails.ProductID = Products.ProductID
+WHERE Products.ProductName = 'Konbu';
+
+5.SELECT AVG(Price) AS HargaRataRata
+FROM Products;
+
+6.SELECT *
+FROM Customers
+WHERE Country NOT LIKE 'America Latin';
+
+7. SELECT *
+FROM Products
+WHERE Price < 100;
+
+8.SELECT *
+FROM Customers
+WHERE Country IN ('Germany', 'France');
+
+9. SELECT COUNT(*) AS JumlahCustomer
+FROM Customers
+WHERE Country = 'USA';
+
+10. SELECT *
+FROM Customers
+WHERE Country LIKE '%a';
+
+11.SELECT *
+FROM Products
+WHERE Price < (SELECT AVG(Price) FROM Products);
+
+12.SELECT *
+FROM Products
+WHERE CategoryID = (
+    SELECT CategoryID
+    FROM Categories
+    WHERE CategoryName = 'Beverages'
+) AND Price > (SELECT AVG(Price) FROM Products);
+
+13.SELECT *
+FROM Orders
+WHERE ShipperID = (
+    SELECT ShipperID
+    FROM Shippers
+    WHERE ShipperName = 'Speedy Express'
+);
+
+ 
