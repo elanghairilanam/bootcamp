@@ -9,6 +9,7 @@ public class appMain {
         String inputJabatan = scanner.next();
         int masaKerja = scanner.nextInt();
         String isMenikah = scanner.next();
+        
 
         int umk = getUMK (inputCabang);
         int gajiPokok = gajiPokokPegawai(masaKerja,inputJabatan,umk);
