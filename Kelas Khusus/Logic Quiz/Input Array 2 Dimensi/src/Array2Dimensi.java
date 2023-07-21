@@ -3,36 +3,39 @@ import java.util.Scanner;
 public class Array2Dimensi {
     public static void main(String[] args) {
 
-        int[][] arrayInput = new int[4][4];
+        int[][] array = new int[4][4];
 
-        inputArray(arrayInput);
+        insertArrayInput(array);
 
-        int bilanganGanjil = hitungBilanganGanjil(arrayInput);
+        int bilanganGanjil = getBilanganGanjil(array);
 
         System.out.println(bilanganGanjil);
     }
 
-    public static void inputArray(int[][] arry){
+    public static void insertArrayInput(int[][] arr){
+
         Scanner scanner = new Scanner(System.in);
 
-        for (int i = 0; i < arry.length; i++) {
-            for (int j = 0; j < arry[i].length; j++) {
-                arry[i][j] = scanner.nextInt();
+        for (int i = 0; i < arr.length ; i++) {
+            for (int j = 0; j < arr[i].length ; j++) {
+                arr[i][j] = scanner.nextInt();
             }
         }
     }
 
-    public static int hitungBilanganGanjil(int[][] arry){
-        int jumlahBilanganGanjil = 0;
+    public static int getBilanganGanjil(int[][] arr){
 
-        for (int i = 0; i < arry.length; i++) {
-            for (int j = 0; j < arry[i].length; j++) {
-                if (arry[i][j] % 2 != 0){
-                    jumlahBilanganGanjil++;
+        int bilanganGanjil = 0;
+
+        for (int i = 0; i < arr.length ; i++) {
+            for (int j = 0; j < arr[i].length ; j++) {
+                if (arr[i][j] % 2 == 1){
+                    bilanganGanjil++;
                 }
             }
         }
 
-        return jumlahBilanganGanjil;
+        return bilanganGanjil;
     }
+
 }
